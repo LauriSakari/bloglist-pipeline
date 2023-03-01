@@ -41,4 +41,4 @@ processes = []
   release_command = "npm run build:ui"
 
 [processes]
-  app = "npm start"
+  app = "node index.js"

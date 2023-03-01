@@ -11,6 +11,7 @@ env:
   MONGODB_URI: ${{secrets.MONGODB_URI}}
   TEST_MONGODB_URI: ${{secrets.TEST_MONGODB_URI}}
   SECRET: ${{secrets.SECRET}}
+  PORT: ${{secrets.PORT}}
   TEST_PORT: ${{secrets.TEST_PORT}}
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 

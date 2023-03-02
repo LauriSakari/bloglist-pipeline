@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if curl https://wild-silence-1283.fly.dev/health | grep ok
+if curl https://wild-silence-1283.fly.dev/health | grep oki
 then
     echo "ok working ok"
     exit 0

@@ -2,7 +2,7 @@
 
 app = "wild-silence-1283"
 kill_signal = "SIGINT"
-kill_timeout = 5
+kill_timeout = 120
 processes = []
 
 [env]

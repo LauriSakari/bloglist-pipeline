@@ -37,7 +37,8 @@ processes = []
     restart_limit = 0
     timeout = "2s"
 
-
+[deploy]
+  release_command = "npm run build:ui"
 
 [processes]
   app = "npm start"

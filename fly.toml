@@ -38,7 +38,7 @@ processes = []
     timeout = "2s"
 
 [deploy]
-  release_command = "npm start"
+  release_command = "npm run build:ui"
 
 [processes]
   app = "npm start"

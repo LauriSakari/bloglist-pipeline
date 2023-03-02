@@ -27,6 +27,11 @@ app.use(express.json())
 app.use(middleware.tokenExtractor)
 app.use(express.static('build'))
 
+//health check
+app.get('/health', (req, res) => {
+  res.send('ok')
+})
+
 app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)

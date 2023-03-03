@@ -9,7 +9,6 @@ ENV PATH /root/.volta/bin:$PATH
 RUN volta install node@${NODE_VERSION}
 
 #######################################################################
-#######################################################################
 
 RUN mkdir /app
 WORKDIR /app

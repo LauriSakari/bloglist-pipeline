@@ -25,22 +25,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
-      - name: Directory content
-        run: ls
       - name: npm install backend
         run: npm install
       - name: npm install frontend
         run: cd client && npm install  
-      - name: Directory content
-        run: ls
       - name: lint
         run: npm run lint
-      - name: Directory content
-        run: ls
       - name: build
         run: npm run build:ui
-      - name: echo mongodb uri
-        run: echo ${{ env.MONGODB_URI }}
       - name: test
         run: npm run test
       - name: e2e tests
@@ -50,11 +42,9 @@ jobs:
           start: npm run start:test
           wait-on: http://localhost:3000         
       - name: Setup fly.io config
+        if: ${{ github.event_name == 'push' }}
         uses: superfly/flyctl-actions/setup-flyctl@master
-      - name: echo mongodb uri
-        run: echo ${{ env.MONGODB_URI }}
-      - name: echo mongodb uri
-        run: echo ${{ env.TEST_MONGODB_URI }}
       - name: Deploy
+        if: ${{ github.event_name == 'push' }}
         run: flyctl deploy --remote-only
 ...

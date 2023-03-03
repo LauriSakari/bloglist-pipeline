@@ -26,6 +26,7 @@ RUN cd client && npm install --production=false
 FROM debian:bullseye
 
 LABEL fly_launch_runtime="nodejs"
+RUN apt-get -y update; apt-get -y install curl
 
 COPY --from=builder /root/.volta /root/.volta
 COPY --from=builder /app /app

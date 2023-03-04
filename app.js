@@ -28,7 +28,6 @@ app.use(middleware.tokenExtractor)
 app.use(express.static('build'))
 
 //health check
-//endpoint
 app.get('/health', (req, res) => {
   res.send('ok')
 })

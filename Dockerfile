@@ -11,6 +11,7 @@ RUN volta install node@${NODE_VERSION}
 #######################################################################
 #######################################################################
 
+RUN git config --global --add safe.directory /github/workspace
 RUN mkdir /app
 WORKDIR /app
 

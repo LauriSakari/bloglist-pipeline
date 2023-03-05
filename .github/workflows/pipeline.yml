@@ -19,7 +19,6 @@ env:
 
 jobs:
   simple_deployment_pipeline:
-    permissions: write-all
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -49,28 +48,18 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         run: flyctl deploy --remote-only    
   
-  # tag_release:
-  #   needs: [simple_deployment_pipeline]
-  #   if: ${{ github.event_name == 'push' }}
-  #   permissions: write-all
-  #   runs-on: ubuntu-20.04
-  #   steps:
-      # - uses: actions/checkout@v3
-      #   with:
-      #     node-version: '14'
+  tag_release:
+    needs: [simple_deployment_pipeline]
+    if: ${{ github.event_name == 'push' }}
+    permissions: write-all
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          node-version: '14'
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.55.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
-          INITIAL_VERSION: 0.0.1
-      - name: echo new tag
-        run: |
-          echo "The next tag version will be: ${{ steps.taggerDryRun.outputs.new_tag }}"
-      - name: echo tag
-        run: |
-          echo "The current tag is: ${{ steps.taggerDryRun.outputs.tag }}"
-      - name: echo part
-        run: |
-          echo "The version increment was: ${{ steps.taggerDryRun.outputs.part }}"
 ...

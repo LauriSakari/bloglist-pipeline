@@ -19,6 +19,7 @@ env:
 
 jobs:
   simple_deployment_pipeline:
+    permissions: write-all
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3

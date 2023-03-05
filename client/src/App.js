@@ -8,8 +8,6 @@ import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  //const [username, setUsername] = useState('')
-  //const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
   const [successMessage, setSuccessMessage] = useState(null)
@@ -147,30 +145,6 @@ const App = () => {
       <Notification message={errorMessage}/>
 
       <LoginForm handleLogin={handleLogin}/>
-      {/*
-      <form onSubmit={handleLogin}>
-        <div>
-    username
-          <input
-            id="username"
-            type="text"
-            value={username}
-            name="Username"
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </div>
-        <div>
-    password
-          <input
-            id="password"
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button id="loginButton" type="submit">login</button>
-      </form> */}
     </>
   )
 

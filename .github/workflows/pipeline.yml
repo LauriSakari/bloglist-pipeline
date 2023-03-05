@@ -59,8 +59,10 @@ jobs:
         with:
           node-version: '14'
       - name: Bump version and push tag
+        if: ${{ !contains(env.JOINT_MESSAGES, '#skip') }}
         uses: anothrNick/github-tag-action@1.55.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
+          JOINT_MESSAGES: ${{ toJson(join(github.event.commits.*.message)) }}
 ...

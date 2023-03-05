@@ -19,6 +19,7 @@ env:
 
 jobs:
   simple_deployment_pipeline:
+    permissions: write-all
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -62,7 +63,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
-          DRY_RUN: true
+          INITIAL_VERSION: 0.0.1
       - name: echo new tag
         run: |
           echo "The next tag version will be: ${{ steps.taggerDryRun.outputs.new_tag }}"

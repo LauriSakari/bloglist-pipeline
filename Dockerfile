@@ -9,9 +9,6 @@ ENV PATH /root/.volta/bin:$PATH
 RUN volta install node@${NODE_VERSION}
 
 #######################################################################
-#######################################################################
-
-#RUN git config --system --add safe.directory /github/workspace
 
 RUN mkdir /app
 WORKDIR /app

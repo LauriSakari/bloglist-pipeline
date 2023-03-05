@@ -16,6 +16,7 @@ env:
   PORT: ${{secrets.PORT}}
   TEST_PORT: ${{secrets.TEST_PORT}}
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  JOINT_MESSAGES: ${{ toJson(join(github.event.commits.*.message)) }}
 
 jobs:
   simple_deployment_pipeline:
@@ -42,15 +43,15 @@ jobs:
           start: npm run start:test
           wait-on: http://localhost:3000         
       - name: Setup fly.io config
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' && !contains(env.JOINT_MESSAGES, '#skip') }}
         uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' && !contains(env.JOINT_MESSAGES, '#skip') }}
         run: flyctl deploy --remote-only    
   
   tag_release:
     needs: [simple_deployment_pipeline]
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ github.event_name == 'push' && !contains(env.JOINT_MESSAGES, '#skip') }}
     permissions: write-all
     runs-on: ubuntu-20.04
     steps:

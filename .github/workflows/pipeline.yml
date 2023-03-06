@@ -51,7 +51,16 @@ jobs:
         uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy
         if: ${{ github.event_name == 'push' && !contains(env.JOINT_MESSAGES, '#skip') }}
-        run: flyctl deploy --remote-only    
+        run: flyctl deploy --remote-only
+      - name: Test Failure
+        uses: rjstone/discord-webhook-notify@v1
+        if: failure()
+        with:
+          severity: error
+          text: Build failed
+          description: commit
+          details: ${{ github.event.head_commit.url }} by ${{ github.actor }} broke the build
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}  
   
   tag_release:
     needs: [simple_deployment_pipeline]
@@ -69,4 +78,21 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
           JOINT_MESSAGES: ${{ toJson(join(github.event.commits.*.message)) }}
+      - name: Test Success
+        uses: rjstone/discord-webhook-notify@v1
+        if: success()
+        with:
+          severity: info
+          text: A new version of pokedex deployed
+          description: to https://wild-silence-1283.fly.dev/ by ${{ github.actor }}
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Test Failure
+        uses: rjstone/discord-webhook-notify@v1
+        if: failure()
+        with:
+          severity: error
+          text: Build failed
+          description: commit
+          details: ${{ github.event.head_commit.url }} by ${{ github.actor }} broke the build
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 ...

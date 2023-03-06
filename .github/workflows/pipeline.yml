@@ -34,10 +34,6 @@ jobs:
         run: npm run lint
       - name: build
         run: npm run build:ui
-      - name: github context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
       - name: test
         run: npm run test
       - name: e2e tests
@@ -83,7 +79,7 @@ jobs:
         if: success()
         with:
           severity: info
-          text: A new version of pokedex deployed
+          text: A new version of blogapp deployed
           description: to https://wild-silence-1283.fly.dev/ by ${{ github.actor }}
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: Test Failure
